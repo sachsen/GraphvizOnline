@@ -9,16 +9,34 @@
             overflow: hidden;
             margin: 0 0;
         }
-
+        #drag-bar {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 5px;
+            margin-left: -2px;
+            cursor: ew-resize;
+            background-color: #ccc;
+            z-index: 100;
+        }
         #editor {
             margin: 0;
             position: absolute;
             top: 0;
             bottom: 0;
-            right: 50%;
             left: 0;
+            right: calc(50% - 2.5px);
         }
-
+        #review {
+            margin: 0;
+            position: absolute;
+            top: 50px;
+            bottom: 0;
+            left: calc(50% + 2.5px);
+            right: 0;
+            overflow: scroll;
+        }
         #review {
             margin: 0;
             position: absolute;
