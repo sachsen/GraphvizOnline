@@ -5,43 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Graphviz Online</title>
     <style type="text/css" media="screen">
-        body {
-            overflow: hidden;
-            margin: 0 0;
-        }
-
-        #editor {
+        #root {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
             margin: 0;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 50%;
-            left: 0;
         }
-
-        #review {
+        body {
+            margin: 0;
+            height: 100vh;
+        }
+        #main-area{
+          width: 100%;
+          height: 100%;
+          margin: 0;
+        }
+        #editor {
             margin: 0;
             position: absolute;
             top: 50px;
             bottom: 0;
+            right: 5%;
+            left: 25px;
+            display: none;
+        }
+
+        #review {
+            margin: 0;
+            position: relative;
+            top: 0;
+            bottom: 0;
             right: 0;
-            left: 50%;
+            left: 0;
+            height: 100%;
             overflow: scroll;
+        }
+        #code-open-bar {
+          margin: 0;
+          position: relative;
+          width: 25px;
+          height: 100%;
+        }
+        #codeopen-button {
+          height: 100%;
+          width: 100%;
+          background: rgb(76, 1, 142);
+          Writing-mode: vertical-lr;
+          color: white;
+          margin: 0;
+          text-align: center;
         }
 
         #options {
             margin: 0;
-            position: fixed;
-            left: 50%;
-            width: 100%;
-        }
-
-        #options {
             flex: 0 0 auto;
-            background: #eee;
+            background: #320073;
             border-bottom: 1px solid #ccc;
             padding: 8px;
             overflow: hidden;
+            width: 100%;
+            color: #FFF;
         }
 
         #options label {
@@ -58,7 +81,6 @@
 
         #status {
             width: 100%;
-            position: fixed;
             bottom: 0;
             display: block;
             color: #FFF;
@@ -126,6 +148,62 @@
     </style>
 </head>
 <body>
+<div id="root">
+  <div id="code-open-bar">
+    <button onclick="toggleDisplay()" id="codeopen-button">Show/Hide Code</button>
+  </div>
+  <div id="main-area">
+    <div id="options">
+        <label id="engine">
+            Engine:
+            <select>
+                <option>circo</option>
+                <option selected="">dot</option>
+                <option>fdp</option>
+                <option>neato</option>
+                <option>osage</option>
+                <option>twopi</option>
+            </select>
+        </label>
+
+        <label id="format">
+            Format:
+            <select>
+                <option selected="">svg</option>
+                <option>png-image-element</option>
+                <option>json</option>
+                <option>xdot</option>
+                <option>plain</option>
+                <option>ps</option>
+            </select>
+        </label>
+
+        <label id="raw" class="disabled">
+            <input type="checkbox" disabled=""> Show raw output
+        </label>
+
+        <label>
+          <a href="#" target="_blank" id="download">Download</a>
+        </label>
+
+        <label>
+            <input type="button" value="Share" id="share">
+        </label>
+
+        <input type="input" value="" id="shareurl">
+
+    </div>
+    <div id="review">
+        <div id="error"></div>
+    </div>
+    <div id="status"></div>
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/dreampuf/graphvizonline">Fork me on GitHub</a>
+        </div>
+    </div>
+  </div>
+</div>
 <pre id="editor">digraph G {
 
   subgraph cluster_0 {
@@ -153,56 +231,6 @@
   start [shape=Mdiamond];
   end [shape=Msquare];
 }</pre>
-<div id="options">
-    <label id="engine">
-        Engine:
-        <select>
-            <option>circo</option>
-            <option selected="">dot</option>
-            <option>fdp</option>
-            <option>neato</option>
-            <option>osage</option>
-            <option>twopi</option>
-        </select>
-    </label>
-
-    <label id="format">
-        Format:
-        <select>
-            <option selected="">svg</option>
-            <option>png-image-element</option>
-            <option>json</option>
-            <option>xdot</option>
-            <option>plain</option>
-            <option>ps</option>
-        </select>
-    </label>
-
-    <label id="raw" class="disabled">
-        <input type="checkbox" disabled=""> Show raw output
-    </label>
-
-    <label>
-      <a href="#" target="_blank" id="download">Download</a>
-    </label>
-
-    <label>
-        <input type="button" value="Share" id="share">
-    </label>
-
-    <input type="input" value="" id="shareurl">
-
-</div>
-<div id="review">
-    <div id="error"></div>
-</div>
-<div id="status"></div>
-<div class="github-fork-ribbon-wrapper right">
-    <div class="github-fork-ribbon">
-        <a href="https://github.com/dreampuf/graphvizonline">Fork me on GitHub</a>
-    </div>
-</div>
-
 <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"
@@ -528,6 +556,15 @@
     }
 
   })(document);
+  function toggleDisplay() {
+    var editor = document.getElementById('editor');
+    if (editor.style.display === 'none') {
+        editor.style.display = 'block';
+    } else {
+        editor.style.display = 'none';
+    }
+  }
+
 </script>
 <script src="viz.js" type="text/javascript" charset="utf-8"></script>
 <script src="svg-pan-zoom.min.js" type="text/javascript" charset="utf-8"></script>
