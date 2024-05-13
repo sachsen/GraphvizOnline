@@ -462,7 +462,7 @@
           fit: true,
           center: true,
         });*/
-        panzoom(reviewer,{smoothScroll: false})
+        panzoom(reviewer,{transformOrigin: {x: 0, y: 0}})
       } else if (formatEl.value == "png-image-element") {
         var resultWithPNGHeader = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(result)));
         svgXmlToImage(resultWithPNGHeader, function (err, image) {
