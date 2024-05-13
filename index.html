@@ -462,7 +462,14 @@
           fit: true,
           center: true,
         });*/
-        panzoom(reviewer,{transformOrigin: {x: 0, y: 0}})
+        panzoom(reviewer,{
+          transformOrigin: {x: 0, y: 0},
+          beforeMouseDown: function(e) {
+            // allow mouse-down panning only if altKey is down. Otherwise - ignore
+            var shouldIgnore = !e.altKey;
+            return shouldIgnore;
+          }
+        })
       } else if (formatEl.value == "png-image-element") {
         var resultWithPNGHeader = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(result)));
         svgXmlToImage(resultWithPNGHeader, function (err, image) {
