@@ -456,12 +456,13 @@
         var svgEl = svg.documentElement;
         a.appendChild(svgEl);
         reviewer.appendChild(a);
-        svgPanZoom(svgEl, {
+        /*svgPanZoom(svgEl, {
           zoomEnabled: true,
           controlIconsEnabled: true,
           fit: true,
           center: true,
-        });
+        });*/
+        panzoom(reviewer,{smoothScroll: false})
       } else if (formatEl.value == "png-image-element") {
         var resultWithPNGHeader = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(result)));
         svgXmlToImage(resultWithPNGHeader, function (err, image) {
@@ -570,5 +571,6 @@
 </script>
 <script src="viz.js" type="text/javascript" charset="utf-8"></script>
 <script src="svg-pan-zoom.min.js" type="text/javascript" charset="utf-8"></script>
+<script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
 </body>
 </html>
